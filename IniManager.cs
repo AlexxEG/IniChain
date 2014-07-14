@@ -185,11 +185,15 @@ namespace System.Ini
         }
 
         /// <summary>
-        /// Returns list of all section names, not including the brackets.
+        /// Returns read-only list of all section names.
         /// </summary>
-        public ICollection<string> GetSections()
+        public ICollection<string> GetSectionNames()
         {
-            return (ICollection<string>)p_Sections.Keys;
+            string[] sections = new string[this.p_Sections.Count];
+
+            this.p_Sections.Keys.CopyTo(sections, 0);
+
+            return Array.AsReadOnly<string>(sections);
         }
 
         /// <summary>
