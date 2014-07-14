@@ -197,6 +197,18 @@ namespace System.Ini
         }
 
         /// <summary>
+        /// Returns read-only list of all sections.
+        /// </summary>
+        public ICollection<IniSection> GetSections()
+        {
+            IniSection[] sections = new IniSection[this.p_Sections.Count];
+
+            this.p_Sections.Values.CopyTo(sections, 0);
+
+            return Array.AsReadOnly<IniSection>(sections);
+        }
+
+        /// <summary>
         /// Returns the property string value.
         /// </summary>
         /// <param name="section">The section of the property.</param>
