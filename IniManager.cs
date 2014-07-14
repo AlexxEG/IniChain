@@ -10,10 +10,6 @@ namespace System.Ini
         OrderedDictionary p_Sections;
 
         /// <summary>
-        /// Gets or sets whether changes is automatically saved.
-        /// </summary>
-        public bool AutoSave { get; set; }
-        /// <summary>
         /// Gets the amount of properties across all sections.
         /// </summary>
         public int CountProperties
@@ -55,7 +51,6 @@ namespace System.Ini
         /// <param name="filename">The complete file path to write and read configuration file.</param>
         public IniManager(string filename)
         {
-            this.AutoSave = false;
             this.Filename = filename;
             this.p_Sections = new OrderedDictionary();
         }
@@ -325,11 +320,6 @@ namespace System.Ini
             else
             {
                 sect.Add(new IniProperty(section, key, value));
-            }
-
-            if (this.AutoSave)
-            {
-                this.Save();
             }
         }
 
