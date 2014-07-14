@@ -185,7 +185,7 @@ namespace System.Ini
         }
 
         /// <summary>
-        /// Returns read-only list of all section names.
+        /// Returns a read-only list of all section names.
         /// </summary>
         public ICollection<string> GetSectionNames()
         {
@@ -197,7 +197,7 @@ namespace System.Ini
         }
 
         /// <summary>
-        /// Returns read-only list of all sections.
+        /// Returns a read-only list of all sections.
         /// </summary>
         public ICollection<IniSection> GetSections()
         {
