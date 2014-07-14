@@ -219,32 +219,46 @@ namespace System.Ini
                     {
                         section.Add(new IniProperty(section.Name, IniType.EmptyLine, line));
                     }
-                    /* Comment line. */
-                    else if (line.StartsWith(";") || line.StartsWith("#"))
-                    {
-                        section.Add(new IniProperty(section.Name, IniType.Comment, line));
-                    }
-                    /* Section line. */
-                    else if (line.StartsWith("[") && line.EndsWith("]"))
-                    {
-                        string name = line.Substring(line.IndexOf("[") + 1, line.IndexOf("]") - line.IndexOf("[") - 1);
-
-                        section = new IniSection(name);
-
-                        p_Sections.Add(name, section);
-                    }
-                    /* Valid property line.
-                     * (NOTE: Placing this check higher up is faster, but doesn't account for '=' in comments.) */
-                    else if (line.Contains("="))
-                    {
-                        string[] split = line.Split('=');
-
-                        section.Add(new IniProperty(section.Name, split[0], split[1]));
-                    }
-                    /* Invalid line. */
                     else
                     {
-                        section.Add(new IniProperty(section.Name, IniType.Invalid, line));
+                        char firstChar = char.Parse(line.Substring(0, 1));
+
+                        switch (firstChar)
+                        {
+                            case ';':
+                            case '#':
+                                /* Comment line. */
+                                section.Add(new IniProperty(section.Name, IniType.Comment, line));
+                                break;
+                            case '[':
+                                /* Section line. */
+                                if (!line.EndsWith("]"))
+                                    /* Line doesn't end with a closing bracket. */
+                                    goto default;
+                                else
+                                {
+                                    string name = line.Substring(line.IndexOf("[") + 1, line.IndexOf("]") - line.IndexOf("[") - 1);
+
+                                    section = new IniSection(name);
+
+                                    p_Sections.Add(name, section);
+                                }
+                                break;
+                            default:
+                                /* Valid property line. */
+                                if (line.Contains("="))
+                                {
+                                    string[] split = line.Split('=');
+
+                                    section.Add(new IniProperty(section.Name, split[0], split[1]));
+                                }
+                                /* Invalid line. */
+                                else
+                                {
+                                    section.Add(new IniProperty(section.Name, IniType.Invalid, line));
+                                }
+                                break;
+                        }
                     }
                 }
             }
