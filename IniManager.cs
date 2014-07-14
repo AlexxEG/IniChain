@@ -7,7 +7,7 @@ namespace System.Ini
 {
     public class IniManager
     {
-        OrderedDictionary p_Sections;
+        OrderedDictionary p_Sections = new OrderedDictionary();
 
         /// <summary>
         /// Gets the amount of properties across all sections.
@@ -52,7 +52,6 @@ namespace System.Ini
         public IniManager(string filename)
         {
             this.Filename = filename;
-            this.p_Sections = new OrderedDictionary();
         }
 
         /// <summary>
