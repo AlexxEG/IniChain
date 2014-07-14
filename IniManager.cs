@@ -13,6 +13,9 @@ namespace System.Ini
         /// Gets or sets whether changes is automatically saved.
         /// </summary>
         public bool AutoSave { get; set; }
+        /// <summary>
+        /// Gets the amount of properties across all sections.
+        /// </summary>
         public int CountProperties
         {
             get
@@ -27,6 +30,9 @@ namespace System.Ini
                 return count;
             }
         }
+        /// <summary>
+        /// Gets the amount of sections.
+        /// </summary>
         public int CountSections
         {
             get { return p_Sections.Count; }
