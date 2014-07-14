@@ -212,18 +212,20 @@ namespace System.Ini
 
                 while ((line = reader.ReadLine()) != null)
                 {
+                    line = line.Trim();
+
                     /* Empty line. */
                     if (string.IsNullOrEmpty(line))
                     {
                         section.Add(new IniProperty(section.Name, IniType.EmptyLine, line));
                     }
                     /* Comment line. */
-                    else if (line.TrimStart().StartsWith(";") || line.TrimStart().StartsWith("#"))
+                    else if (line.StartsWith(";") || line.StartsWith("#"))
                     {
                         section.Add(new IniProperty(section.Name, IniType.Comment, line));
                     }
                     /* Section line. */
-                    else if (line.TrimStart().StartsWith("[") && line.TrimEnd().EndsWith("]"))
+                    else if (line.StartsWith("[") && line.EndsWith("]"))
                     {
                         string name = line.Substring(line.IndexOf("[") + 1, line.IndexOf("]") - line.IndexOf("[") - 1);
 
