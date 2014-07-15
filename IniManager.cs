@@ -221,6 +221,8 @@ namespace System.Ini
             if (!File.Exists(this.Filename))
                 return;
 
+            this.p_Sections.Clear();
+
             using (var reader = new StreamReader(this.Filename))
             {
                 string line;
