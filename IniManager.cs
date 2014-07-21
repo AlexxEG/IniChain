@@ -255,7 +255,10 @@ namespace System.Ini
                                     goto default;
                                 else
                                 {
-                                    string name = line.Substring(line.IndexOf("[") + 1, line.IndexOf("]") - line.IndexOf("[") - 1);
+                                    int start = line.IndexOf('[') + 1;
+                                    int length = line.IndexOf(']') - line.IndexOf('[') - 1;
+
+                                    string name = line.Substring(start, length);
 
                                     section = new IniSection(name);
 
