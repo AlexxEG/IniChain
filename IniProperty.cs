@@ -17,9 +17,9 @@
         /// <summary>
         /// Gets or sets the property value.
         /// </summary>
-        public object Value { get; set; }
+        public string Value { get; set; }
 
-        public IniProperty(string section, string key, object value)
+        public IniProperty(string section, string key, string value)
         {
             this.Key = key;
             this.Section = section;

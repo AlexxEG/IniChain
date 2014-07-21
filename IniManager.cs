@@ -288,7 +288,7 @@ namespace System.Ini
         /// <param name="section">The section of the property.</param>
         /// <param name="key">The key of the property.</param>
         /// <param name="value">The property value.</param>
-        public void Put(string section, string key, object value)
+        public void Put(string section, string key, string value)
         {
             IniSection sect = null;
 
@@ -303,7 +303,7 @@ namespace System.Ini
                     IniSection lastSect = (IniSection)p_Sections[p_Sections.Count - 1];
 
                     /* Insert empy line? */
-                    if (!string.IsNullOrEmpty(lastSect[lastSect.Count - 1].Value.ToString()))
+                    if (!string.IsNullOrEmpty(lastSect[lastSect.Count - 1].Value))
                     {
                         lastSect.Add(new IniProperty(section, IniType.EmptyLine, ""));
                     }
@@ -349,7 +349,7 @@ namespace System.Ini
                         /* Respect comment/empty/invalid lines. */
                         if (property.Type != IniType.Property)
                         {
-                            writer.WriteLine(property.Value.ToString());
+                            writer.WriteLine(property.Value);
                         }
                         else
                         {
