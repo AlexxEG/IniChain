@@ -40,9 +40,7 @@ namespace System.Ini
                     {
                         key = type.ToString() + random.Next(int.MaxValue);
 
-                        attempts++;
-
-                        if (attempts >= int.MaxValue)
+                        if ((attempts++) >= int.MaxValue)
                         {
                             /* There's literally no keys left. */
                             throw new Exception("No random keys left.");
