@@ -7,6 +7,8 @@ namespace System.Ini
     public class IniSection : IEnumerable
     {
         Random random = new Random();
+        /* Store properties in a OrderedDictionary to keep the order, and faster lookup.
+         * Key is string type, Value is IniProperty type. */
         OrderedDictionary properties = new OrderedDictionary();
 
         public string Name { get; set; }
