@@ -1,7 +1,25 @@
 ﻿namespace System.Ini
 {
+    /// <summary>
+    /// Specifies the type of INI line.
+    /// </summary>
     public enum IniType
     {
-        Comment, EmptyLine, Invalid, Property
+        /// <summary>
+        /// A INI comment line.
+        /// </summary>
+        Comment,
+        /// <summary>
+        /// A empty line.
+        /// </summary>
+        EmptyLine,
+        /// <summary>
+        /// A invalid INI line.
+        /// </summary>
+        Invalid,
+        /// <summary>
+        /// A INI property line.
+        /// </summary>
+        Property
     }
 }
