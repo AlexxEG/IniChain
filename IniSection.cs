@@ -11,6 +11,9 @@ namespace System.Ini
          * Key is string type, Value is IniProperty type. */
         OrderedDictionary properties = new OrderedDictionary();
 
+        /// <summary>
+        /// Gets or sets the section name.
+        /// </summary>
         public string Name { get; set; }
 
         public IniProperty this[int index]
@@ -18,11 +21,19 @@ namespace System.Ini
             get { return (IniProperty)properties[index]; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the System.Ini.IniSection class.
+        /// </summary>
+        /// <param name="name">The name of the section.</param>
         public IniSection(string name)
         {
             this.Name = name;
         }
 
+        /// <summary>
+        /// Adds an IniProperty to the end of the properties list.
+        /// </summary>
+        /// <param name="property">The IniProperty to be added to the end of the properties list.</param>
         public void Add(IniProperty property)
         {
             string key = "";
@@ -59,11 +70,23 @@ namespace System.Ini
             this.properties.Add(key, property);
         }
 
+        /// <summary>
+        /// Adds an IniProperty to the end of the properties list.
+        /// </summary>
+        /// <param name="section">The section of the property.</param>
+        /// <param name="key">The key of the property.</param>
+        /// <param name="value">The value of the property.</param>
         public void Add(string section, string key, string value)
         {
             this.Add(new IniProperty(section, key, value));
         }
 
+        /// <summary>
+        /// Adds an IniProperty to the end of the properties list.
+        /// </summary>
+        /// <param name="section">The section of the property.</param>
+        /// <param name="type">The type of the property.</param>
+        /// <param name="value">The value of the property.</param>
         public void Add(string section, IniType type, string value)
         {
             if (type == IniType.Property)
@@ -75,13 +98,24 @@ namespace System.Ini
             this.Add(new IniProperty(section, type, value));
         }
 
+        /// <summary>
+        /// Determine whether a property with the given key exists.
+        /// </summary>
+        /// <param name="key">The key of the property to find.</param>
         public bool Contains(string key)
         {
             return this.properties.Contains(key);
         }
 
+        /// <summary>
+        /// Gets the number of properties in the section.
+        /// </summary>
         public int Count { get { return this.properties.Count; } }
 
+        /// <summary>
+        /// Returns the IniProperty with the given key.
+        /// </summary>
+        /// <param name="key">The key of the property to find.</param>
         public IniProperty Get(string key)
         {
             return (IniProperty)this.properties[key];
@@ -90,7 +124,6 @@ namespace System.Ini
         /// <summary>
         /// Returns a read-only collection of properties.
         /// </summary>
-        /// <returns></returns>
         public ICollection<IniProperty> GetAll()
         {
             IniProperty[] properties = new IniProperty[this.properties.Count];
@@ -100,11 +133,19 @@ namespace System.Ini
             return Array.AsReadOnly<IniProperty>(properties);
         }
 
+        /// <summary>
+        /// Removes the IniProperty with the given key from the properties list.
+        /// </summary>
+        /// <param name="key">The key of the IniProperty to remove from the properties list.</param>
         public void Remove(string key)
         {
             this.properties.Remove(key);
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through the properties list.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator GetEnumerator()
         {
             return new IniListEnumerator(this);
@@ -120,7 +161,6 @@ namespace System.Ini
                 this.l = l;
             }
 
-            // The IEnumerator interface requires a MoveNext method. 
             public bool MoveNext()
             {
                 if (position < l.properties.Count - 1)
@@ -134,13 +174,11 @@ namespace System.Ini
                 }
             }
 
-            // The IEnumerator interface requires a Reset method. 
             public void Reset()
             {
                 position = -1;
             }
 
-            /// The IEnumerator interface requires a Current method. 
             public object Current
             {
                 get

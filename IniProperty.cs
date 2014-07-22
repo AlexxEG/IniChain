@@ -19,6 +19,12 @@
         /// </summary>
         public string Value { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the System.Ini.IniProperty class.
+        /// </summary>
+        /// <param name="section">The section of the property.</param>
+        /// <param name="key">The key of the property.</param>
+        /// <param name="value">The value of the property.</param>
         public IniProperty(string section, string key, string value)
         {
             this.Key = key;
@@ -27,6 +33,12 @@
             this.Value = value;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the System.Ini.IniProperty class.
+        /// </summary>
+        /// <param name="section">The section of the property.</param>
+        /// <param name="type">The type of the property.</param>
+        /// <param name="value">The value of the property.</param>
         public IniProperty(string section, IniType type, string value)
         {
             this.Key = null;
