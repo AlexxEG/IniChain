@@ -148,15 +148,15 @@ namespace System.Ini
         /// <returns></returns>
         public IEnumerator GetEnumerator()
         {
-            return new IniListEnumerator(this);
+            return new Enumerator(this);
         }
 
-        private class IniListEnumerator : IEnumerator
+        private class Enumerator : IEnumerator
         {
             private int position = -1;
             private IniSection l;
 
-            public IniListEnumerator(IniSection l)
+            public Enumerator(IniSection l)
             {
                 this.l = l;
             }
