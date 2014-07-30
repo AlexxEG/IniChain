@@ -75,6 +75,25 @@ namespace System.Ini
         }
 
         /// <summary>
+        /// Determine whether a section exists.
+        /// </summary>
+        /// <param name="section">The section to find.</param>
+        public bool Contains(string section)
+        {
+            return this.p_Sections.Contains(section);
+        }
+
+        /// <summary>
+        /// Determine whether a property within a given section exists.
+        /// </summary>
+        /// <param name="section">The section to find.</param>
+        /// <param name="key">The key of the property to find.</param>
+        public bool Contains(string section, string key)
+        {
+            return this.GetSection(section).Contains(key);
+        }
+
+        /// <summary>
         /// Deletes property from section in configuration file.
         /// </summary>
         /// <param name="section">The section of the property.</param>
