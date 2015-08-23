@@ -143,7 +143,7 @@ namespace System.Ini
         /// <param name="comment">The comment text.</param>
         public IniSection InsertComment(string comment)
         {
-            this.Add(new IniProperty(this.Name, IniType.Comment, comment));
+            this.Add(new IniProperty(this.Name, IniType.Comment, "; " + comment));
 
             return this;
         }
@@ -155,7 +155,7 @@ namespace System.Ini
         /// <param name="comment">The comment text.</param>
         public IniSection InsertComment(int index, string comment)
         {
-            this.properties.Insert(index, GenerateKey(IniType.Comment), comment);
+            this.properties.Insert(index, GenerateKey(IniType.Comment), "; " + comment);
 
             return this;
         }
