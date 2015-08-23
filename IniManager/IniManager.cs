@@ -292,9 +292,16 @@ namespace System.Ini
 
                                     string name = line.Substring(start, length);
 
-                                    section = new IniSection(name);
+                                    if (p_Sections.Contains(name))
+                                    {
+                                        section = (IniSection)p_Sections[name];
+                                    }
+                                    else
+                                    {
+                                        section = new IniSection(name);
 
-                                    p_Sections.Add(name, section);
+                                        p_Sections.Add(name, section);
+                                    }
                                 }
                                 break;
                             default:
