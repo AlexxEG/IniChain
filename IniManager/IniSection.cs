@@ -156,6 +156,42 @@ namespace System.Ini
         }
 
         /// <summary>
+        /// Inserts comment at the bottom of the property list.
+        /// </summary>
+        /// <param name="comment">The comment text.</param>
+        public void InsertComment(string comment)
+        {
+            this.Add(new IniProperty(this.Name, IniType.Comment, comment));
+        }
+
+        /// <summary>
+        /// Inserts comment into property list at the given index.
+        /// </summary>
+        /// <param name="index">The index to insert comment at.</param>
+        /// <param name="comment">The comment text.</param>
+        public void InsertComment(int index, string comment)
+        {
+            this.properties.Insert(index, GenerateKey(IniType.Comment), comment);
+        }
+
+        /// <summary>
+        /// Inserts a empty line at the bottom of the property list.
+        /// </summary>
+        public void InsertEmptyLine()
+        {
+            this.Add(new IniProperty(this.Name, IniType.EmptyLine, string.Empty));
+        }
+
+        /// <summary>
+        /// Inserts a empty line into property list at the given index.
+        /// </summary>
+        /// <param name="index">The index to insert empty line at.</param>
+        public void InsertEmptyLine(int index)
+        {
+            this.properties.Insert(index, GenerateKey(IniType.EmptyLine), string.Empty);
+        }
+
+        /// <summary>
         /// Removes the IniProperty with the given key from the properties list.
         /// </summary>
         /// <param name="key">The key of the IniProperty to remove from the properties list.</param>
