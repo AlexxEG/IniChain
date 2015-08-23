@@ -12,9 +12,23 @@ namespace System.Ini
         OrderedDictionary properties = new OrderedDictionary();
 
         /// <summary>
+        /// Gets the number of properties in the section.
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return this.properties.Count;
+            }
+        }
+        /// <summary>
         /// Gets or sets the section name.
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get;
+            set;
+        }
 
         public IniProperty this[int index]
         {
@@ -108,11 +122,6 @@ namespace System.Ini
         {
             return this.properties.Contains(key);
         }
-
-        /// <summary>
-        /// Gets the number of properties in the section.
-        /// </summary>
-        public int Count { get { return this.properties.Count; } }
 
         /// <summary>
         /// Returns the IniProperty with the given key.
