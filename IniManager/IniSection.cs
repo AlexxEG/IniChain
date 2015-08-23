@@ -83,7 +83,6 @@ namespace System.Ini
         /// <summary>
         /// Adds an IniProperty to the end of the properties list.
         /// </summary>
-        /// <param name="section">The section of the property.</param>
         /// <param name="key">The key of the property.</param>
         /// <param name="value">The value of the property.</param>
         public IniSection Add(string key, string value)
@@ -96,7 +95,6 @@ namespace System.Ini
         /// <summary>
         /// Adds an IniProperty to the end of the properties list.
         /// </summary>
-        /// <param name="section">The section of the property.</param>
         /// <param name="type">The type of the property.</param>
         /// <param name="value">The value of the property.</param>
         public IniSection Add(IniType type, string value)
@@ -206,6 +204,9 @@ namespace System.Ini
             return new Enumerator(this);
         }
 
+        /// <summary>
+        /// Generates and returns a random key by combining the type name + a random number.
+        /// </summary>
         private string GenerateKey(IniType type)
         {
             if (type == IniType.Property)
