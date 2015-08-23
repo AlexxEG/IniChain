@@ -30,12 +30,12 @@ namespace IniManager_Console
 
             for (int i = 0; i < 25000; i++)
             {
-                iniHelper.Put("General", "k" + i, "v" + i);
+                iniHelper.GetSection("HEADER").Add(IniType.Comment, "Test Comment");
             }
 
             sw.Stop();
 
-            Console.WriteLine("Inserting 25,000 properties:".PadRight(28) + " {0} ms", sw.ElapsedMilliseconds);
+            Console.WriteLine("Inserted 25,000 comments:".PadRight(28) + " {0} ms", sw.ElapsedMilliseconds);
             /* =================================================== */
 
 
@@ -49,7 +49,7 @@ namespace IniManager_Console
 
             sw.Stop();
 
-            Console.WriteLine("Inserting 25,000 properties:".PadRight(28) + " {0} ms", sw.ElapsedMilliseconds);
+            Console.WriteLine("Inserted 25,000 properties:".PadRight(28) + " {0} ms", sw.ElapsedMilliseconds);
             /* =================================================== */
 
 
