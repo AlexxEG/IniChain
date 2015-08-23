@@ -256,7 +256,9 @@ namespace System.Ini
             using (var reader = new StreamReader(this.Filename))
             {
                 string line;
-                IniSection section = null;
+                IniSection section = new IniSection("HEADER");
+
+                p_Sections.Add("HEADER", section);
 
                 while ((line = reader.ReadLine()) != null)
                 {
@@ -297,7 +299,7 @@ namespace System.Ini
                                 break;
                             default:
                                 /* Valid property line. */
-                                if (line.Contains("="))
+                                if (line.Contains("=") && section.Name != "HEADER")
                                 {
                                     string[] split = line.Split('=');
 
