@@ -48,7 +48,7 @@ namespace System.Ini
         /// Adds an IniProperty to the end of the properties list.
         /// </summary>
         /// <param name="property">The IniProperty to be added to the end of the properties list.</param>
-        public void Add(IniProperty property)
+        public IniSection Add(IniProperty property)
         {
             string key = string.Empty;
             IniType type = property.Type;
@@ -71,6 +71,8 @@ namespace System.Ini
             property.Section = this.Name;
 
             this.properties.Add(key, property);
+
+            return this;
         }
 
         /// <summary>
@@ -79,9 +81,11 @@ namespace System.Ini
         /// <param name="section">The section of the property.</param>
         /// <param name="key">The key of the property.</param>
         /// <param name="value">The value of the property.</param>
-        public void Add(string key, string value)
+        public IniSection Add(string key, string value)
         {
             this.Add(new IniProperty(this.Name, key, value));
+
+            return this;
         }
 
         /// <summary>
@@ -90,7 +94,7 @@ namespace System.Ini
         /// <param name="section">The section of the property.</param>
         /// <param name="type">The type of the property.</param>
         /// <param name="value">The value of the property.</param>
-        public void Add(IniType type, string value)
+        public IniSection Add(IniType type, string value)
         {
             if (type == IniType.Property)
             {
@@ -99,6 +103,8 @@ namespace System.Ini
             }
 
             this.Add(new IniProperty(this.Name, type, value));
+
+            return this;
         }
 
         /// <summary>
@@ -108,30 +114,6 @@ namespace System.Ini
         public bool Contains(string key)
         {
             return this.properties.Contains(key);
-        }
-
-        private string GenerateKey(IniType type)
-        {
-            if (type == IniType.Property)
-                throw new ArgumentException("Can't generate key for properties.", "type");
-
-            string key = string.Empty;
-            int attempts = 0;
-
-            // Keep generating a new key until it finds a unused one.
-            // This shouldn't add much delay, if any, unless the INI file is absolutely MASSIVE.
-            do
-            {
-                key = type.ToString() + random.Next(int.MaxValue);
-
-                if ((attempts++) >= int.MaxValue)
-                {
-                    // There is literally no keys left
-                    throw new Exception("No random key available.");
-                }
-            } while (this.properties.Contains(key));
-
-            return key;
         }
 
         /// <summary>
@@ -159,9 +141,11 @@ namespace System.Ini
         /// Inserts comment at the bottom of the property list.
         /// </summary>
         /// <param name="comment">The comment text.</param>
-        public void InsertComment(string comment)
+        public IniSection InsertComment(string comment)
         {
             this.Add(new IniProperty(this.Name, IniType.Comment, comment));
+
+            return this;
         }
 
         /// <summary>
@@ -169,35 +153,43 @@ namespace System.Ini
         /// </summary>
         /// <param name="index">The index to insert comment at.</param>
         /// <param name="comment">The comment text.</param>
-        public void InsertComment(int index, string comment)
+        public IniSection InsertComment(int index, string comment)
         {
             this.properties.Insert(index, GenerateKey(IniType.Comment), comment);
+
+            return this;
         }
 
         /// <summary>
         /// Inserts a empty line at the bottom of the property list.
         /// </summary>
-        public void InsertEmptyLine()
+        public IniSection InsertEmptyLine()
         {
             this.Add(new IniProperty(this.Name, IniType.EmptyLine, string.Empty));
+
+            return this;
         }
 
         /// <summary>
         /// Inserts a empty line into property list at the given index.
         /// </summary>
         /// <param name="index">The index to insert empty line at.</param>
-        public void InsertEmptyLine(int index)
+        public IniSection InsertEmptyLine(int index)
         {
             this.properties.Insert(index, GenerateKey(IniType.EmptyLine), string.Empty);
+
+            return this;
         }
 
         /// <summary>
         /// Removes the IniProperty with the given key from the properties list.
         /// </summary>
         /// <param name="key">The key of the IniProperty to remove from the properties list.</param>
-        public void Remove(string key)
+        public IniSection Remove(string key)
         {
             this.properties.Remove(key);
+
+            return this;
         }
 
         /// <summary>
@@ -207,6 +199,30 @@ namespace System.Ini
         public IEnumerator GetEnumerator()
         {
             return new Enumerator(this);
+        }
+
+        private string GenerateKey(IniType type)
+        {
+            if (type == IniType.Property)
+                throw new ArgumentException("Can't generate key for properties.", "type");
+
+            string key = string.Empty;
+            int attempts = 0;
+
+            // Keep generating a new key until it finds a unused one.
+            // This shouldn't add much delay, if any, unless the INI file is absolutely MASSIVE.
+            do
+            {
+                key = type.ToString() + random.Next(int.MaxValue);
+
+                if ((attempts++) >= int.MaxValue)
+                {
+                    // There is literally no keys left
+                    throw new Exception("No random key available.");
+                }
+            } while (this.properties.Contains(key));
+
+            return key;
         }
 
         private class Enumerator : IEnumerator
