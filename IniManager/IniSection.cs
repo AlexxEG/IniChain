@@ -50,9 +50,8 @@ namespace System.Ini
         /// <param name="property">The IniProperty to be added to the end of the properties list.</param>
         public void Add(IniProperty property)
         {
-            string key = "";
+            string key = string.Empty;
             IniType type = property.Type;
-            int attempts = 0;
 
             /* Generate a key for certain types, this fixes the problem 
              * with duplicate key for non-property lines. */
@@ -61,19 +60,7 @@ namespace System.Ini
                 case IniType.Comment:
                 case IniType.EmptyLine:
                 case IniType.Invalid:
-                    /* Keep generating a new key until it finds a unused one.
-                     * This shouldn't add much delay, if any, unless the INI file is absolutely MASSIVE. */
-                    do
-                    {
-                        key = type.ToString() + random.Next(int.MaxValue);
-
-                        if ((attempts++) >= int.MaxValue)
-                        {
-                            /* There's literally no keys left. */
-                            throw new Exception("No random keys left.");
-                        }
-                    }
-                    while (this.properties.Contains(key));
+                    key = GenerateKey(type);
                     break;
                 case IniType.Property:
                 default:
@@ -121,6 +108,30 @@ namespace System.Ini
         public bool Contains(string key)
         {
             return this.properties.Contains(key);
+        }
+
+        private string GenerateKey(IniType type)
+        {
+            if (type == IniType.Property)
+                throw new ArgumentException("Can't generate key for properties.", "type");
+
+            string key = string.Empty;
+            int attempts = 0;
+
+            // Keep generating a new key until it finds a unused one.
+            // This shouldn't add much delay, if any, unless the INI file is absolutely MASSIVE.
+            do
+            {
+                key = type.ToString() + random.Next(int.MaxValue);
+
+                if ((attempts++) >= int.MaxValue)
+                {
+                    // There is literally no keys left
+                    throw new Exception("No random key available.");
+                }
+            } while (this.properties.Contains(key));
+
+            return key;
         }
 
         /// <summary>
