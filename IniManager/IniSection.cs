@@ -50,7 +50,7 @@ namespace System.Ini
         /// <param name="property">The IniProperty to be added to the end of the properties list.</param>
         public IniSection Add(IniProperty property)
         {
-            string key = string.Empty;
+            string key = property.Key;
             IniType type = property.Type;
 
             /* Generate a key for certain types, this fixes the problem 
@@ -60,7 +60,10 @@ namespace System.Ini
                 case IniType.Comment:
                 case IniType.EmptyLine:
                 case IniType.Invalid:
-                    key = GenerateKey(type);
+                    // Empty key means we have to generate a random one
+                    if (string.IsNullOrEmpty(key))
+                        key = GenerateKey(type);
+
                     break;
                 case IniType.Property:
                 default:
@@ -68,6 +71,8 @@ namespace System.Ini
                     break;
             }
 
+            // Apply new key and section
+            property.Key = key;
             property.Section = this.Name;
 
             this.properties.Add(key, property);

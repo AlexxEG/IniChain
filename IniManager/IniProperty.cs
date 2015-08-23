@@ -5,7 +5,7 @@
         /// <summary>
         /// Gets the property key.
         /// </summary>
-        public string Key { get; private set; }
+        public string Key { get; internal set; }
         /// <summary>
         /// Gets the property section.
         /// </summary>
@@ -34,7 +34,7 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the System.Ini.IniProperty class.
+        /// Initializes a new instance of the System.Ini.IniProperty class. Generates random key.
         /// </summary>
         /// <param name="section">The section of the property.</param>
         /// <param name="type">The type of the property.</param>
@@ -42,6 +42,21 @@
         public IniProperty(string section, IniType type, string value)
         {
             this.Key = null;
+            this.Section = section;
+            this.Type = type;
+            this.Value = value;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the System.Ini.IniProperty class.
+        /// </summary>
+        /// <param name="section">The section of the property.</param>
+        /// <param name="type">The type of the property.</param>
+        /// <param name="key">The key of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        internal IniProperty(string section, IniType type, string key, string value)
+        {
+            this.Key = key;
             this.Section = section;
             this.Type = type;
             this.Value = value;

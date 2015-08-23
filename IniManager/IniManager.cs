@@ -269,17 +269,26 @@ namespace System.Ini
 
             using (var reader = new StreamReader(this.Filename))
             {
+                string key = string.Empty;
                 string line;
+                int lineCount = 0;
                 IniSection section = this.GetSection(SectionHeader);
 
                 while ((line = reader.ReadLine()) != null)
                 {
+                    lineCount++;
                     line = line.Trim();
 
                     // Empty line. 
                     if (string.IsNullOrEmpty(line))
                     {
-                        section.Add(new IniProperty(section.Name, IniType.EmptyLine, line));
+                        key = IniType.EmptyLine.ToString() + lineCount;
+
+                        // Use key above if available, otherwise generate random
+                        if (section.Contains(key))
+                            section.Add(new IniProperty(section.Name, IniType.EmptyLine, line));
+                        else
+                            section.Add(new IniProperty(section.Name, IniType.EmptyLine, key, line));
                     }
                     else
                     {
@@ -288,12 +297,17 @@ namespace System.Ini
                         switch (firstChar)
                         {
                             case ';':
-                            case '#':
-                                // Comment line. 
-                                section.Add(new IniProperty(section.Name, IniType.Comment, line));
+                            case '#': // Comment line
+                                key = IniType.Comment.ToString() + lineCount;
+
+                                // Use key above if available, otherwise generate random
+                                if (section.Contains(key))
+                                    section.Add(new IniProperty(section.Name, IniType.Comment, line));
+                                else
+                                    section.Add(new IniProperty(section.Name, IniType.Comment, key, line));
+
                                 break;
-                            case '[':
-                                // Section line. 
+                            case '[': // Section line
                                 if (!line.EndsWith("]"))
                                     // Line doesn't end with a closing bracket. 
                                     goto default;
@@ -317,21 +331,28 @@ namespace System.Ini
                                 }
                                 break;
                             default:
-                                // Valid property line. 
+                                // Valid property line
                                 if (line.Contains("=") && section.Name != SectionHeader)
                                 {
                                     string[] split = line.Split('=');
-                                    string key = split[0];
                                     string value = split[1];
+
+                                    key = split[0];
 
                                     if (section.Contains(split[0]))
                                         throw new Exception(string.Format("Section '{0}' already contains property '{1}'. Value: {2}", section.Name, key, value));
 
                                     section.Add(new IniProperty(section.Name, key, value));
                                 }
-                                else // Invalid line. 
+                                else // Invalid line
                                 {
-                                    section.Add(new IniProperty(section.Name, IniType.Invalid, line));
+                                    key = IniType.Invalid.ToString() + lineCount;
+
+                                    // Use key above if available, otherwise generate random
+                                    if (section.Contains(key))
+                                        section.Add(new IniProperty(section.Name, IniType.Invalid, line));
+                                    else
+                                        section.Add(new IniProperty(section.Name, IniType.Invalid, key, line));
                                 }
                                 break;
                         }
