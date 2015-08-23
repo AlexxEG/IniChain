@@ -202,6 +202,9 @@ namespace System.Ini
         /// <param name="section">Section to return properties from.</param>
         public IniSection GetSection(string section)
         {
+            if (!p_Sections.Contains(section))
+                p_Sections.Add(section, new IniSection(section));
+
             return (IniSection)p_Sections[section];
         }
 
