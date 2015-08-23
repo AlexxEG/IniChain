@@ -382,6 +382,15 @@ namespace System.Ini
                         /* Respect comment/empty/invalid lines. */
                         if (property.Type != IniType.Property)
                         {
+                            // Automatically add the comment character if there is none for comments
+                            if (property.Type == IniType.Comment)
+                            {
+                                if (!property.Value.StartsWith(";") && !property.Value.StartsWith("#"))
+                                {
+                                    property.Value = "; " + property.Value;
+                                }
+                            }
+
                             writer.WriteLine(property.Value);
                         }
                         else
