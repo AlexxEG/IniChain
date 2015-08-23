@@ -98,7 +98,7 @@ namespace System.Ini
         {
             if (type == IniType.Property)
             {
-                /* Properties can't have empty key. */
+                 // Properties can't have empty key. 
                 throw new ArgumentException("INI property can't have empty key.");
             }
 

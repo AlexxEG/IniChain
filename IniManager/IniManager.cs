@@ -111,7 +111,7 @@ namespace System.Ini
             if (properties == null)
                 return;
 
-            /* If the key is the last property, might as well delete section. */
+             // If the key is the last property, might as well delete section. 
             if (properties.Contains(key) && properties.Count == 1)
             {
                 p_Sections.Remove(section);
@@ -264,7 +264,7 @@ namespace System.Ini
                 {
                     line = line.Trim();
 
-                    /* Empty line. */
+                     // Empty line. 
                     if (string.IsNullOrEmpty(line))
                     {
                         section.Add(new IniProperty(section.Name, IniType.EmptyLine, line));
@@ -277,13 +277,13 @@ namespace System.Ini
                         {
                             case ';':
                             case '#':
-                                /* Comment line. */
+                                 // Comment line. 
                                 section.Add(new IniProperty(section.Name, IniType.Comment, line));
                                 break;
                             case '[':
-                                /* Section line. */
+                                 // Section line. 
                                 if (!line.EndsWith("]"))
-                                    /* Line doesn't end with a closing bracket. */
+                                     // Line doesn't end with a closing bracket. 
                                     goto default;
                                 else
                                 {
@@ -298,14 +298,14 @@ namespace System.Ini
                                 }
                                 break;
                             default:
-                                /* Valid property line. */
+                                 // Valid property line. 
                                 if (line.Contains("=") && section.Name != "HEADER")
                                 {
                                     string[] split = line.Split('=');
 
                                     section.Add(new IniProperty(section.Name, split[0], split[1]));
                                 }
-                                /* Invalid line. */
+                                 // Invalid line. 
                                 else
                                 {
                                     section.Add(new IniProperty(section.Name, IniType.Invalid, line));
@@ -337,7 +337,7 @@ namespace System.Ini
                 {
                     IniSection lastSect = (IniSection)p_Sections[p_Sections.Count - 1];
 
-                    /* Insert empy line? */
+                     // Insert empy line? 
                     if (!string.IsNullOrEmpty(lastSect[lastSect.Count - 1].Value))
                     {
                         lastSect.Add(new IniProperty(section, IniType.EmptyLine, ""));
@@ -381,7 +381,7 @@ namespace System.Ini
 
                     foreach (IniProperty property in (pair.Value as IniSection).GetAll())
                     {
-                        /* Respect comment/empty/invalid lines. */
+                         // Respect comment/empty/invalid lines. 
                         if (property.Type != IniType.Property)
                         {
                             // Automatically add the comment character if there is none for comments
