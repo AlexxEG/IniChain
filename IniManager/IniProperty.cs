@@ -9,7 +9,7 @@
         /// <summary>
         /// Gets the property section.
         /// </summary>
-        public string Section { get; private set; }
+        public string Section { get; internal set; }
         /// <summary>
         /// Gets the property type.
         /// </summary>

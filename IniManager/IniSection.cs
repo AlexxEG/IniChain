@@ -67,6 +67,8 @@ namespace System.Ini
                     break;
             }
 
+            property.Section = this.Name;
+
             this.properties.Add(key, property);
         }
 
@@ -76,9 +78,9 @@ namespace System.Ini
         /// <param name="section">The section of the property.</param>
         /// <param name="key">The key of the property.</param>
         /// <param name="value">The value of the property.</param>
-        public void Add(string section, string key, string value)
+        public void Add(string key, string value)
         {
-            this.Add(new IniProperty(section, key, value));
+            this.Add(new IniProperty(this.Name, key, value));
         }
 
         /// <summary>
@@ -87,7 +89,7 @@ namespace System.Ini
         /// <param name="section">The section of the property.</param>
         /// <param name="type">The type of the property.</param>
         /// <param name="value">The value of the property.</param>
-        public void Add(string section, IniType type, string value)
+        public void Add(IniType type, string value)
         {
             if (type == IniType.Property)
             {
@@ -95,7 +97,7 @@ namespace System.Ini
                 throw new ArgumentException("INI property can't have empty key.");
             }
 
-            this.Add(new IniProperty(section, type, value));
+            this.Add(new IniProperty(this.Name, type, value));
         }
 
         /// <summary>
