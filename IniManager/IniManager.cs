@@ -309,11 +309,15 @@ namespace System.Ini
                                 if (line.Contains("=") && section.Name != "HEADER")
                                 {
                                     string[] split = line.Split('=');
+                                    string key = split[0];
+                                    string value = split[1];
 
-                                    section.Add(new IniProperty(section.Name, split[0], split[1]));
+                                    if (section.Contains(split[0]))
+                                        throw new Exception(string.Format("Section '{0}' already contains property '{1}'. Value: {2}", section.Name, key, value));
+
+                                    section.Add(new IniProperty(section.Name, key, value));
                                 }
-                                // Invalid line. 
-                                else
+                                else // Invalid line. 
                                 {
                                     section.Add(new IniProperty(section.Name, IniType.Invalid, line));
                                 }
