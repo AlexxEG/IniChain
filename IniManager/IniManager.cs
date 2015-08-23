@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 
 namespace System.Ini
@@ -37,6 +38,11 @@ namespace System.Ini
         /// Gets the filename of the current configuration file.
         /// </summary>
         public string Filename { get; private set; }
+        /// <summary>
+        /// Gets or sets if default value is returned when value is empty.
+        /// </summary>
+        [DefaultValue(false)]
+        public bool ReturnDefaultIfEmpty { get; set; }
         /// <summary>
         /// Gets the sections of the configuration file with properties as read-only.
         /// </summary>
@@ -152,7 +158,9 @@ namespace System.Ini
                 return defaultValue;
             }
 
-            return this.GetSection(section).Get(key).Value;
+            string value = this.GetSection(section).Get(key).Value;
+
+            return this.ReturnDefaultIfEmpty && string.IsNullOrEmpty(value) ? defaultValue : value;
         }
 
         /// <summary>
