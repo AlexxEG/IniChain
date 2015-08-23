@@ -8,6 +8,8 @@ namespace System.Ini
 {
     public class IniManager
     {
+        private const string SectionHeader = "HEADER";
+
         OrderedDictionary p_Sections = new OrderedDictionary();
 
         /// <summary>
@@ -39,6 +41,16 @@ namespace System.Ini
         /// </summary>
         public string Filename { get; private set; }
         /// <summary>
+        /// Gets the always present Header section.
+        /// </summary>
+        public IniSection HeaderSection
+        {
+            get
+            {
+                return (IniSection)p_Sections[SectionHeader];
+            }
+        }
+        /// <summary>
         /// Gets or sets if default value is returned when value is empty.
         /// </summary>
         [DefaultValue(false)]
@@ -58,6 +70,8 @@ namespace System.Ini
         public IniManager(string filename)
         {
             this.Filename = filename;
+
+            p_Sections.Add(SectionHeader, new IniSection(SectionHeader));
         }
 
         /// <summary>
@@ -256,9 +270,7 @@ namespace System.Ini
             using (var reader = new StreamReader(this.Filename))
             {
                 string line;
-                IniSection section = new IniSection("HEADER");
-
-                p_Sections.Add("HEADER", section);
+                IniSection section = this.GetSection(SectionHeader);
 
                 while ((line = reader.ReadLine()) != null)
                 {
@@ -306,7 +318,7 @@ namespace System.Ini
                                 break;
                             default:
                                 // Valid property line. 
-                                if (line.Contains("=") && section.Name != "HEADER")
+                                if (line.Contains("=") && section.Name != SectionHeader)
                                 {
                                     string[] split = line.Split('=');
                                     string key = split[0];
@@ -388,7 +400,7 @@ namespace System.Ini
             {
                 foreach (DictionaryEntry pair in p_Sections)
                 {
-                    if ((string)pair.Key != "HEADER")
+                    if ((string)pair.Key != SectionHeader)
                         writer.WriteLine("[{0}]", pair.Key);
 
                     foreach (IniProperty property in (pair.Value as IniSection).GetAll())
