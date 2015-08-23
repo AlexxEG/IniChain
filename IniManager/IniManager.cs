@@ -377,7 +377,7 @@ namespace System.Ini
             {
                 foreach (DictionaryEntry pair in p_Sections)
                 {
-                    if (pair.Key != "HEADER")
+                    if ((string)pair.Key != "HEADER")
                         writer.WriteLine("[{0}]", pair.Key);
 
                     foreach (IniProperty property in (pair.Value as IniSection).GetAll())
