@@ -18,12 +18,19 @@ namespace IniManager_Console
 
             /* =================================================== */
             sw.Restart();
-            iniHelper.Load();
-            sw.Stop();
 
-            Console.WriteLine("Loading:".PadRight(28) + " {0} ms", sw.ElapsedMilliseconds);
+            for (int i = 0; i < 100; i++)
+            {
+                iniHelper.Load();
+                Console.WriteLine("Loading:".PadRight(28) + " {0} ms", sw.ElapsedMilliseconds);
+                sw.Restart();
+            }
+
+            sw.Stop();
             /* =================================================== */
 
+            Console.WriteLine("Press any key to test adding.");
+            Console.ReadKey();
 
             /* =================================================== */
             sw.Restart();
