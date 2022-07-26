@@ -65,7 +65,7 @@ namespace IniChain
         }
 
         /// <summary>
-        /// Initializes a new instance of the System.Ini.IniManager class. Does not load until Load method is called.
+        /// Initializes a new instance of the <see cref="IniChain.Ini"/> class. Does not load until Load method is called.
         /// </summary>
         /// <param name="filename">The complete file path to write and read configuration file.</param>
         public Ini(string filename)
