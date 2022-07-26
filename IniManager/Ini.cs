@@ -1,12 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 
-namespace System.Ini
+namespace IniChain
 {
-    public class IniManager
+    public class Ini
     {
         private const string SectionHeader = "HEADER";
 
@@ -67,7 +68,7 @@ namespace System.Ini
         /// Initializes a new instance of the System.Ini.IniManager class. Does not load until Load method is called.
         /// </summary>
         /// <param name="filename">The complete file path to write and read configuration file.</param>
-        public IniManager(string filename)
+        public Ini(string filename)
         {
             this.Filename = filename;
 

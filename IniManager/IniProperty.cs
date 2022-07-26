@@ -1,4 +1,4 @@
-﻿namespace System.Ini
+﻿namespace IniChain
 {
     public class IniProperty
     {

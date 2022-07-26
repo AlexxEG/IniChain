@@ -1,4 +1,4 @@
-﻿namespace System.Ini
+﻿namespace IniChain
 {
     /// <summary>
     /// Specifies the type of INI line.

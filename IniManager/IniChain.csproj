@@ -7,8 +7,8 @@
     <ProjectGuid>{23BE452F-9940-4EDA-81EC-AA03089BB088}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IniManager</RootNamespace>
-    <AssemblyName>IniManager</AssemblyName>
+    <RootNamespace>IniChain</RootNamespace>
+    <AssemblyName>IniChain</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -36,7 +36,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IniManager.cs" />
+    <Compile Include="Ini.cs" />
     <Compile Include="IniSection.cs" />
     <Compile Include="IniProperty.cs" />
     <Compile Include="IniType.cs" />
