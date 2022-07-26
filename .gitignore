@@ -131,6 +131,10 @@ packages/
 # This line needs to be after the ignore of the build folder (and the packages folder if the line above has been uncommented)
 !packages/build/
 
+# NuGet spec and builds
+*.nuspec
+*.nupkg
+
 # Windows Azure Build Output
 csx/
 *.build.csdef
@@ -185,7 +189,7 @@ FakesAssemblies/
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
+Icon
 
 # Thumbnails
 ._*
