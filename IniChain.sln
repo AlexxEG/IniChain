@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IniChain", "IniManager\IniChain.csproj", "{23BE452F-9940-4EDA-81EC-AA03089BB088}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IniChain", "IniChain\IniChain.csproj", "{23BE452F-9940-4EDA-81EC-AA03089BB088}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
