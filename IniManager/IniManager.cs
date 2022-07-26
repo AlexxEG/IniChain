@@ -316,7 +316,8 @@ namespace System.Ini
                                     int start = line.IndexOf('[') + 1;
                                     int length = line.IndexOf(']') - line.IndexOf('[') - 1;
 
-                                    string name = line.Substring(start, length);
+                                    // Trim white space from section name
+                                    string name = line.Substring(start, length).Trim();
 
                                     if (p_Sections.Contains(name))
                                     {
@@ -335,9 +336,10 @@ namespace System.Ini
                                 if (line.Contains("=") && section.Name != SectionHeader)
                                 {
                                     string[] split = line.Split('=');
-                                    string value = split[1];
 
-                                    key = split[0];
+                                    // Trim key name and value
+                                    string value = split[1].Trim();
+                                    key = split[0].Trim();
 
                                     if (section.Contains(split[0]))
                                         throw new Exception(string.Format("Section '{0}' already contains property '{1}'. Value: {2}", section.Name, key, value));
